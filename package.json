@@ -1,5 +1,5 @@
 {
-  "name": "@playwright/cli",
+  "name": "@snomiao/playwright-cli-multi-tab",
   "version": "0.1.1",
   "description": "Playwright CLI",
   "repository": {
@@ -26,6 +26,7 @@
     "playwright": "1.59.0-alpha-1773608981000"
   },
   "bin": {
-    "playwright-cli": "playwright-cli.js"
+    "playwright-cli": "playwright-cli.js",
+    "playwright-cli-multi-tab": "playwright-cli.js"
   }
 }
