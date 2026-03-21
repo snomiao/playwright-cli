@@ -15,4 +15,21 @@
  * limitations under the License.
  */
 
+// Workspace-local session storage: if .playwright/ marker exists in the project tree,
+// store session files there instead of the global cache directory.
+const _path = require('path');
+const _fs = require('fs');
+function _findWorkspaceDir(startDir) {
+  let dir = startDir;
+  for (let i = 0; i < 10; i++) {
+    if (_fs.existsSync(_path.join(dir, '.playwright'))) return dir;
+    const parent = _path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+}
+const _wsDir = _findWorkspaceDir(process.cwd());
+if (_wsDir && !process.env.PLAYWRIGHT_DAEMON_SESSION_DIR)
+  process.env.PLAYWRIGHT_DAEMON_SESSION_DIR = _path.join(_wsDir, '.playwright', 'sessions');
+
 require('playwright/lib/cli/client/program');
