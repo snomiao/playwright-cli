@@ -32,4 +32,12 @@ const _wsDir = _findWorkspaceDir(process.cwd());
 if (_wsDir && !process.env.PLAYWRIGHT_DAEMON_SESSION_DIR)
   process.env.PLAYWRIGHT_DAEMON_SESSION_DIR = _path.join(_wsDir, '.playwright', 'sessions');
 
+// Patch help text to use the actual invoked command name instead of hardcoded "playwright-cli".
+// All help output goes through console.log, so a single interception covers everything.
+const _cmdName = _path.basename(process.argv[1] || 'playwright-cli').replace(/\.(js|mjs|cjs)$/, '');
+if (_cmdName !== 'playwright-cli') {
+  const _origLog = console.log;
+  console.log = (...args) => _origLog(...args.map(a => typeof a === 'string' ? a.replaceAll('playwright-cli', _cmdName) : a));
+}
+
 require('playwright/lib/cli/client/program');
