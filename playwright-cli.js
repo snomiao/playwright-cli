@@ -15,7 +15,29 @@
  * limitations under the License.
  */
 
-const { program } = require('playwright-core/lib/tools/cli-client/program');
-const packageJson = require('./package.json');
+// Workspace-local session storage: if .playwright/ marker exists in the project tree,
+// store session files there instead of the global cache directory.
+const _path = require('path');
+const _fs = require('fs');
+function _findWorkspaceDir(startDir) {
+  let dir = startDir;
+  for (let i = 0; i < 10; i++) {
+    if (_fs.existsSync(_path.join(dir, '.playwright'))) return dir;
+    const parent = _path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+}
+const _wsDir = _findWorkspaceDir(process.cwd());
+if (_wsDir && !process.env.PLAYWRIGHT_DAEMON_SESSION_DIR)
+  process.env.PLAYWRIGHT_DAEMON_SESSION_DIR = _path.join(_wsDir, '.playwright', 'sessions');
 
-program({ embedderVersion: packageJson.version });
+// Patch help text to use the actual invoked command name instead of hardcoded "playwright-cli".
+// All help output goes through console.log, so a single interception covers everything.
+const _cmdName = _path.basename(process.argv[1] || 'playwright-cli').replace(/\.(js|mjs|cjs)$/, '');
+if (_cmdName !== 'playwright-cli') {
+  const _origLog = console.log;
+  console.log = (...args) => _origLog(...args.map(a => typeof a === 'string' ? a.replaceAll('playwright-cli', _cmdName) : a));
+}
+
+require('playwright-core/lib/tools/cli-client/cli');
