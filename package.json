@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "minimist": "^1.2.5",
-    "playwright": "1.59.0-alpha-1773608981000"
+    "playwright": "1.59.0-alpha-1773608981000",
+    "playwright-core": "file:../playwright/packages/playwright-core"
   },
   "bin": {
     "playwright-cli-multi-tab": "playwright-cli.js"

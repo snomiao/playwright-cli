@@ -1,0 +1,35 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 0,
+  "workspaces": {
+    "": {
+      "name": "@playwright/cli",
+      "dependencies": {
+        "minimist": "^1.2.5",
+        "playwright": "1.59.0-alpha-1773608981000",
+        "playwright-core": "file:../playwright/packages/playwright-core",
+      },
+      "devDependencies": {
+        "@playwright/test": "1.59.0-alpha-1773608981000",
+        "@types/node": "^25.2.1",
+      },
+    },
+  },
+  "packages": {
+    "@playwright/test": ["@playwright/test@1.59.0-alpha-1773608981000", "", { "dependencies": { "playwright": "1.59.0-alpha-1773608981000" }, "bin": { "playwright": "cli.js" } }, "sha512-px+GAf8KIaMcPsCUPG3+xqPRSIPHgnizH7ygUjo6OXT1AigXTNCsIIVrPY3C5GjouM2MI4CQOkIKcSEjO84ZTg=="],
+
+    "@types/node": ["@types/node@25.2.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-CPrnr8voK8vC6eEtyRzvMpgp3VyVRhgclonE7qYi6P9sXwYb59ucfrnmFBTaP0yUi8Gk4yZg/LlTJULGxvTNsg=="],
+
+    "fsevents": ["fsevents@2.3.2", "", { "os": "darwin" }, "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="],
+
+    "minimist": ["minimist@1.2.8", "", {}, "sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA=="],
+
+    "playwright": ["playwright@1.59.0-alpha-1773608981000", "", { "dependencies": { "playwright-core": "1.59.0-alpha-1773608981000" }, "optionalDependencies": { "fsevents": "2.3.2" }, "bin": { "playwright": "cli.js" } }, "sha512-nb+BzawNj48eH6NdxecsysLuhCAB/p18FG7LLJp3MBfRGUkCAFtax0CFo/BhD+r0V4+0EW7llPK0p4cJQEIwUQ=="],
+
+    "playwright-core": ["playwright-core@file:../playwright/packages/playwright-core", { "bin": { "playwright-core": "cli.js" } }],
+
+    "undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
+
+    "playwright/playwright-core": ["playwright-core@1.59.0-alpha-1773608981000", "", { "bin": { "playwright-core": "cli.js" } }, "sha512-w6E5Q0Wleek3Wp7gtlSPGXuKeQ5eg6QPPJNNwgMHQRpkxgqOwgN2mX7x6Z52HJE10HFC88U5HQzOLMbag928Lg=="],
+  }
+}
