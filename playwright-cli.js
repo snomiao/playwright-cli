@@ -40,4 +40,4 @@ if (_cmdName !== 'playwright-cli') {
   console.log = (...args) => _origLog(...args.map(a => typeof a === 'string' ? a.replaceAll('playwright-cli', _cmdName) : a));
 }
 
-require('playwright-core/lib/tools/cli-client/cli');
+require('playwright-core/lib/tools/cli-client/program');
