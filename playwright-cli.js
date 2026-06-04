@@ -40,4 +40,11 @@ if (_cmdName !== 'playwright-cli') {
   console.log = (...args) => _origLog(...args.map(a => typeof a === 'string' ? a.replaceAll('playwright-cli', _cmdName) : a));
 }
 
-require('playwright-core/lib/tools/cli-client/program');
+// The cli-client/program module exports `program` (an async entrypoint) but does
+// not self-invoke — only cli.js does, and cli.js is not in playwright-core's
+// exports map (ERR_PACKAGE_PATH_NOT_EXPORTED). So require the exported program
+// path and invoke it ourselves, mirroring cli.js.
+require('playwright-core/lib/tools/cli-client/program').program().catch((e) => {
+  console.error(e.message);
+  process.exit(1);
+});
